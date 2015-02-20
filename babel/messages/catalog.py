@@ -253,7 +253,7 @@ class Catalog(object):
                  project=None, version=None, copyright_holder=None,
                  msgid_bugs_address=None, creation_date=None,
                  revision_date=None, last_translator=None, language_team=None,
-                 charset=None, fuzzy=True):
+                 language=None, charset=None, fuzzy=True):
         """Initialize the catalog object.
 
         :param locale: the locale identifier or `Locale` object, or `None`
@@ -290,6 +290,7 @@ class Catalog(object):
         """Name and email address of the last translator."""
         self.language_team = language_team or 'LANGUAGE <LL@li.org>'
         """Name and email address of the language team."""
+        self.language = language or 'LANGUAGE'
 
         self.charset = charset or 'utf-8'
 
@@ -380,6 +381,12 @@ class Catalog(object):
                                                       str(self.locale))))
         else:
             headers.append(('Language-Team', self.language_team))
+        if (self.locale is not None) and ('LANGUAGE' in self.language):
+            headers.append(('Language',
+                           self.language.replace('LANGUAGE',
+                                                 str(self.locale))))
+        else:
+            headers.append(('Language', self.language))
         if self.locale is not None:
             headers.append(('Plural-Forms', self.plural_forms))
         headers.append(('MIME-Version', '1.0'))
