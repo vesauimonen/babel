@@ -128,7 +128,7 @@ class compile_catalog(Command):
 
         for idx, (locale, po_file) in enumerate(po_files):
             mo_file = mo_files[idx]
-            infile = open(po_file, 'rb')
+            infile = open(po_file, 'r')
             try:
                 catalog = read_po(infile, locale)
             finally:
@@ -320,7 +320,7 @@ class extract_messages(Command):
         mappings = {}
 
         if self.mapping_file:
-            fileobj = open(self.mapping_file, 'U')
+            fileobj = open(self.mapping_file, 'r')
             try:
                 method_map, options_map = parse_mapping(fileobj)
                 for dirname in self.input_dirs:
@@ -439,7 +439,7 @@ class init_catalog(Command):
         log.info('creating catalog %r based on %r', self.output_file,
                  self.input_file)
 
-        infile = open(self.input_file, 'rb')
+        infile = open(self.input_file, 'r')
         try:
             # Although reading from the catalog template, read_po must be fed
             # the locale in order to correctly calculate plurals
@@ -554,7 +554,7 @@ class update_catalog(Command):
         if not domain:
             domain = os.path.splitext(os.path.basename(self.input_file))[0]
 
-        infile = open(self.input_file, 'rb')
+        infile = open(self.input_file, 'r')
         try:
             template = read_po(infile)
         finally:
@@ -566,7 +566,7 @@ class update_catalog(Command):
         for locale, filename in po_files:
             log.info('updating catalog %r based on %r', filename,
                      self.input_file)
-            infile = open(filename, 'rb')
+            infile = open(filename, 'r')
             try:
                 catalog = read_po(infile, locale=locale, domain=domain)
             finally:
@@ -760,7 +760,7 @@ class CommandLineInterface(object):
 
         for idx, (locale, po_file) in enumerate(po_files):
             mo_file = mo_files[idx]
-            infile = open(po_file, 'rb')
+            infile = open(po_file, 'r')
             try:
                 catalog = read_po(infile, locale)
             finally:
@@ -872,7 +872,7 @@ class CommandLineInterface(object):
             keywords.update(parse_keywords(options.keywords))
 
         if options.mapping_file:
-            fileobj = open(options.mapping_file, 'U')
+            fileobj = open(options.mapping_file, 'r')
             try:
                 method_map, options_map = parse_mapping(fileobj)
             finally:
@@ -1094,7 +1094,7 @@ class CommandLineInterface(object):
         if not domain:
             domain = os.path.splitext(os.path.basename(options.input_file))[0]
 
-        infile = open(options.input_file, 'U')
+        infile = open(options.input_file, 'r')
         try:
             template = read_po(infile)
         finally:
@@ -1110,7 +1110,7 @@ class CommandLineInterface(object):
         for locale, filename in po_files:
             self.log.info('updating catalog %r based on %r', filename,
                           options.input_file)
-            infile = open(filename, 'U')
+            infile = open(filename, 'r')
             try:
                 catalog = read_po(infile, locale=locale, domain=domain)
             finally:
