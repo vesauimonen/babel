@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import sys
 import subprocess
+import sys
+from distutils.cmd import Command
+
 from setuptools import setup
 
 sys.path.append(os.path.join('doc', 'common'))
@@ -12,7 +14,6 @@ except ImportError:
     build_doc = test_doc = None
 
 
-from distutils.cmd import Command
 
 
 class import_cldr(Command):
@@ -32,7 +33,7 @@ class import_cldr(Command):
 
 setup(
     name='Babel',
-    version='2.0-dev',
+    version='2.0',
     description='Internationalization utilities',
     long_description=\
 """A collection of tools for internationalizing Python applications.""",
